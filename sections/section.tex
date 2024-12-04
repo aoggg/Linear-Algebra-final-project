@@ -1,0 +1,136 @@
+\section{Introduction}
+Recurrence relations are central in mathematics and computer science, appearing frequently in problems such as the Fibonacci sequence or divide-and-conquer strategies. While direct computation of recurrence relations can be inefficient, especially for large inputs, transforming them into matrices offers a more efficient alternative.
+
+In this report, we explore how matrix exponentiation can simplify and speed up the computation of recurrence relations. We implement this approach using C++ and compare its performance with a dynamic programming solution, highlighting its advantages for solving high-order or iterative recurrence problems.
+
+\section{Materials and Methods}
+\subsection{Materials}
+Tools and resources utilized include: pen, papers, brains, computers, and the C++ programming language.
+\subsection{Methods}
+Initially, the transition matrix for the recursive formula is derived, and its theoretical time complexity is calculated. Subsequently, C++ code is implemented to evaluate its performance through execution time measurement. The consistency between the measured execution time and the theoretical time complexity is verified. Finally, the results are compared with those obtained from a dynamic programming (DP) implementation.
+
+\section{Results}
+
+\section{Discussion}
+\subsection{Fibonacci} 
+$F(n) = F(n - 1) + F(n - 2)$
+
+$$ \begin{bmatrix}
+        F(n)\\F(n-1)
+    \end{bmatrix} =
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 0
+    \end{bmatrix}
+    \begin{bmatrix}
+        F(n - 1)\\
+        F(n - 2)
+    \end{bmatrix}\\
+    = 
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 0
+    \end{bmatrix}^{n - 2}
+    \begin{bmatrix}
+        F(2)\\
+        F(1)
+    \end{bmatrix}\\
+    =
+    \begin{bmatrix}
+        1 & 1\\
+        1 & 0
+    \end{bmatrix}^{n - 2}
+    \begin{bmatrix}
+        1\\
+        1
+    \end{bmatrix}
+$$
+
+\subsection{Rail} $D_i = \sum\limits_{j = 0}^{i - 2}(2(i - j) - 3)D_j$\\
+
+A detailed description of the Rail recurrence relation is provided in Appendix \ref{rail} on page \pageref{rail}.
+
+% \begin{equation*}
+%     \begin{split}
+%         D_i &= \sum\limits_{j = 0}^{i - 2}(2(i - j) - 3)D_j\\
+%             &= \sum\limits_{j = 0}^{i - 2}(2i - 2j - 3)D_j\\
+%             &= \sum\limits_{j = 0}^{i - 2}(2i - 3)D_j - \sum\limits_{j = 0}^{i - 2}2jD_j\\
+%             &= (2i - 3)\times\sum\limits_{j = 0}^{i - 2}D_j - 2\times\sum\limits_{j = 0}^{i - 2} jD_j
+%     \end{split}
+% \end{equation*}
+
+% From the above induction, we can have $D_i$ and $D_{i - 1}$
+
+% $$\left\{
+%     \begin{array}{c}
+%         D_i = (2i - 3)\times\sum\limits_{j = 0}^{i - 2}D_j - 2\times\sum\limits_{j = 0}^{i - 2} jD_j\\
+%         D_{i - 1} = (2i - 5)\times\sum\limits_{j = 0}^{i - 3}D_j - 2\times\sum\limits_{j = 0}^{i - 3}jD_j
+%     \end{array}
+% \right.$$
+
+% \begin{equation*}
+%     \begin{split}
+%         D_i - D_{i - 1} &= (2i - 3)D_{i - 2} + 2 \times\sum\limits_{j = 0}^{i - 3}D_j - 2(i - 2)\times D_{i - 2}\\
+%                         &= D_{i - 2} + 2\times\sum\limits_{j = 0}^{i - 3}D_j
+%     \end{split}
+% \end{equation*}
+
+% $$
+% \begin{array}{lcl}
+% D_i - D_{i - 1} - D_{i - 2} & = & 2\times\sum\limits_{j = 0}^{i - 3}D_j \\
+% D_{i - 1} - D_{i - 2} - D{i - 3} & = & 2 \times\sum\limits_{j = 0}^{i - 4}D_j\\
+% D_i - 2D_{i - 1} + D_{i - 3} & = & 2D_{i - 3}\\
+% D_i & = &2D_{i - 1} + D_{i - 3}
+% \end{array}
+% $$
+
+% \ \\So we obtained the transition matrix for $D_i$\\\\
+$$
+\begin{bmatrix}
+    D_i\\
+    D_{i - 1}\\
+    D_{i - 2}
+\end{bmatrix} = 
+\begin{bmatrix}
+    2 & 0 & 1\\
+    1 & 0 & 0\\
+    0 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+    D_{i - 1}\\
+    D_{i - 2}\\
+    D_{i - 3}
+\end{bmatrix} = 
+\begin{bmatrix}
+    2 & 0 & 1\\
+    1 & 0 & 0\\
+    0 & 1 & 0
+\end{bmatrix}^{i - 2}
+\begin{bmatrix}
+    D_2\\
+    D_1\\
+    D_0
+\end{bmatrix} = 
+\begin{bmatrix}
+    2 & 0 & 1\\
+    1 & 0 & 0\\
+    0 & 1 & 0
+\end{bmatrix}^{i - 2}
+\begin{bmatrix}
+    1\\
+    0\\
+    1
+\end{bmatrix}
+$$\\
+
+The complete induction process is detailed in Appendix \ref{induction for Rail} on page \pageref{induction for Rail}.
+
+\section{Conclusion}
+\label{conclusion}
+
+\begin{enumerate}
+    \item[1.] For recursive relations with fixed coefficients, representing them in matrix form enables efficient computation through repeated multiplication of the same matrix. This approach facilitates the application of fast exponentiation, thereby reducing the number of operations and significantly shortening computation time.\\\
+    \item[2.] A comparison between fast exponentiation and the DP approach demonstrates that the time difference becomes increasingly significant as $n$ grows. This observation aligns closely with the theoretical time complexity analysis.
+\end{enumerate}
+
+\section{Reference}

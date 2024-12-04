@@ -1,0 +1,87 @@
+%%%%% here is preamble %%%%%
+
+\documentclass{amsart}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{xeCJK}
+\usepackage{fontspec}
+\usepackage{amsmath}
+
+%%% hyperlink %%%
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Overleaf Example},
+    pdfpagemode=FullScreen,
+    }
+%%% hyperlink %%%
+
+%%% code %%%
+\usepackage{listings}
+\usepackage{xcolor}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+%%% code %%%
+
+%%% chinese %%%
+\setCJKmainfont{NotoSerifTC-VariableFont_wght.ttf}
+%%% chinese %%%
+
+%%% style(margin)%%%
+\usepackage
+[
+    a4paper,
+    margin = 2.5cm
+]
+{geometry}
+%%% style(margin)%%%
+
+%%% insert pdf %%%
+\usepackage{pdfpages}
+%%% insert pdf %%%
+
+%%%%% here is preamble %%%%%
+
+\title{\textbf{Applications of Transition Matrices in Various Recursive Models}}
+\author{林士紘、張恩睿、李彥霆、林秉毅、葉宥均}
+
+
+\begin{document}
+\begin{abstract}
+    This report investigates the use of transition matrices to solve specific recursive relations, offering a more efficient alternative to traditional Dynamic Programming (DP) approaches for certain problems. By deriving the transition matrices and applying fast matrix exponentiation, we aim to reduce computational complexity. We compare the efficiency of these two methods through theoretical analysis and experimental results, examining whether actual computation times align with the predicted complexities. Our findings demonstrate the potential of transition matrices in optimizing the computation of high-order recurrences, particularly for large-scale problems.
+\end{abstract}
+\maketitle
+\pagestyle{plain}
+% \thispagestyle{empty}
+\pagenumbering{arabic}
+\input{sections/section}
+\newpage
+\renewcommand{\appendixname}{}%
+\appendix
+\pagenumbering{roman}
+\input{sections/appendices}
+\end{document}

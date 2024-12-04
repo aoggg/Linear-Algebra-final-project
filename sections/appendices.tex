@@ -1,0 +1,116 @@
+\section{Rail}
+\label{rail}
+\includepdf[pages=-]{appendices/rail.pdf}
+
+\section{Induction for the Transition Matrix of Rail}
+\label{induction for Rail}
+
+We start with the recursive formula:
+\begin{equation}
+    D_i = \sum\limits_{j = 0}^{i - 2}(2(i - j) - 3)D_j
+\end{equation}
+
+Expanding the summation:
+\begin{align*}
+    D_i &= \sum\limits_{j = 0}^{i - 2}(2i - 2j - 3)D_j \\
+        &= \sum\limits_{j = 0}^{i - 2}(2i - 3)D_j - \sum\limits_{j = 0}^{i - 2}2jD_j \\
+        &= (2i - 3)\sum\limits_{j = 0}^{i - 2}D_j - 2\sum\limits_{j = 0}^{i - 2}jD_j
+\end{align*}
+
+Using induction, we express $D_i$ and $D_{i - 1}$:
+\begin{align}
+    D_i &= (2i - 3)\sum\limits_{j = 0}^{i - 2}D_j - 2\sum\limits_{j = 0}^{i - 2}jD_j \label{eq:di} \\
+    D_{i - 1} &= (2i - 5)\sum\limits_{j = 0}^{i - 3}D_j - 2\sum\limits_{j = 0}^{i - 3}jD_j \label{eq:di_minus_1}
+\end{align}
+
+To simplify further, subtract Equation~\eqref{eq:di_minus_1} from Equation~\eqref{eq:di}:
+\begin{align*}
+    D_i - D_{i - 1} &= (2i - 3)D_{i - 2} + 2 \sum\limits_{j = 0}^{i - 3}D_j - 2(i - 2)D_{i - 2} \\
+                    &= D_{i - 2} + 2\sum\limits_{j = 0}^{i - 3}D_j
+\end{align*}
+
+Using induction on the differences, we arrive at:
+\begin{align*}
+    D_i - D_{i - 1} - D_{i - 2} &= 2\sum\limits_{j = 0}^{i - 3}D_j \\
+    D_{i - 1} - D_{i - 2} - D_{i - 3} &= 2\sum\limits_{j = 0}^{i - 4}D_j \\
+    D_i - 2D_{i - 1} + D_{i - 3} &= 2D_{i - 3}
+\end{align*}
+
+Thus, we obtain the recurrence relation:
+\begin{equation}
+    D_i = 2D_{i - 1} + D_{i - 3}
+\end{equation}
+
+\subsection{Transition Matrix Representation}
+
+We represent this recurrence relation using a transition matrix:
+\[
+\begin{bmatrix}
+    D_i \\
+    D_{i - 1} \\
+    D_{i - 2}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    2 & 0 & 1 \\
+    1 & 0 & 0 \\
+    0 & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+    D_{i - 1} \\
+    D_{i - 2} \\
+    D_{i - 3}
+\end{bmatrix}
+\]
+
+The general term can be expressed as:
+\[
+\begin{bmatrix}
+    D_i \\
+    D_{i - 1} \\
+    D_{i - 2}
+\end{bmatrix}
+=
+\begin{bmatrix}
+    2 & 0 & 1 \\
+    1 & 0 & 0 \\
+    0 & 1 & 0
+\end{bmatrix}^{i - 2}
+\begin{bmatrix}
+    D_2 \\
+    D_1 \\
+    D_0
+\end{bmatrix}
+=
+\begin{bmatrix}
+    2 & 0 & 1 \\
+    1 & 0 & 0 \\
+    0 & 1 & 0
+\end{bmatrix}^{i - 2}
+\begin{bmatrix}
+    1 \\
+    0 \\
+    1
+\end{bmatrix}
+\]
+
+\section{Code for Fibonacci}
+\label{Fibonacci Code}
+\subsection{Using Recursion}
+\lstinputlisting[language=C++]{appendices/fibonacci_recursion.cpp}
+
+\subsection{Using DP}
+\lstinputlisting[language=C++]{appendices/fibonacci.cpp}
+
+\subsection{Using Fast Matrix Power}
+\lstinputlisting[language=C++]{appendices/fibonacci_bignum_2.cpp}
+
+\section{Code for Rail}
+\label{Rail Code}
+\subsection{Using Recursion}
+\lstinputlisting[language=C++]{appendices/rail_recursion.cpp}
+\subsection{Using DP}
+\lstinputlisting[language=C++]{appendices/rail.cpp}
+\subsection{Using Fast Matrix Power}
+\lstinputlisting[language=C++]{appendices/rail_bignum.cpp}
+
