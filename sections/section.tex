@@ -3,6 +3,33 @@ Recurrence relations are central in mathematics and computer science, appearing 
 
 In this report, we explore how matrix exponentiation can simplify and speed up the computation of recurrence relations. We implement this approach using C++ and compare its performance with a dynamic programming solution, highlighting its advantages for solving high-order or iterative recurrence problems.
 
+\begin{minipage}{\linewidth}
+    \centering
+    \begin{minipage}{0.32\linewidth}
+        \begin{figure}[H]
+            \includegraphics[height=3cm]{picture/fib_re_graph.png}
+            \caption{case 1}
+            % \label{case1}
+        \end{figure}
+    \end{minipage}
+    % \hspace{0.05\linewidth}
+    \begin{minipage}{0.32\linewidth}
+        \begin{figure}[H]
+            \includegraphics[height=3cm]{picture/fib_re_vs_dp.png}
+            \caption{case 2-1}
+            % \label{case2-1}
+        \end{figure}
+    \end{minipage}
+    % \hspace{0.05\linewidth}
+    \begin{minipage}{0.32\linewidth}
+        \begin{figure}[H]
+            \includegraphics[height=3cm]{picture/fib_re_vs_pow.png}
+            \caption{case 2-2}
+            % \label{case2-2}
+        \end{figure}
+    \end{minipage}
+\end{minipage}
+
 \section{Materials and Methods}
 \subsection{Materials}
 Tools and resources utilized include: pen, papers, brains, computers, and the C++ programming language.
@@ -10,6 +37,40 @@ Tools and resources utilized include: pen, papers, brains, computers, and the C+
 Initially, the transition matrix for the recursive formula is derived, and its theoretical time complexity is calculated. Subsequently, C++ code is implemented to evaluate its performance through execution time measurement. The consistency between the measured execution time and the theoretical time complexity is verified. Finally, the results are compared with those obtained from a dynamic programming (DP) implementation.
 
 \section{Results}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \includegraphics[height=3cm]{picture/rail_re_graph.png}
+            \caption{case 1}
+            % \label{case1}
+        \end{figure}
+    \end{minipage}
+    % \hspace{0.05\linewidth}
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \includegraphics[height=3cm]{picture/rail_dp1.png}
+            \caption{case 2-1}
+            % \label{case2-1}
+        \end{figure}
+    \end{minipage}
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \includegraphics[height=3cm]{picture/rail_dp2.png}
+            \caption{case 1}
+            % \label{case1}
+        \end{figure}
+    \end{minipage}
+    % \hspace{0.05\linewidth}
+    \begin{minipage}{0.45\linewidth}
+        \begin{figure}[H]
+            \includegraphics[height=3cm]{picture/rail_pow.png}
+            \caption{case 2-1}
+            % \label{case2-1}
+        \end{figure}
+    \end{minipage}
+\end{minipage}
 
 \section{Discussion}
 \subsection{Fibonacci} 
@@ -50,41 +111,6 @@ $$
 
 A detailed description of the Rail recurrence relation is provided in Appendix \ref{rail} on page \pageref{rail}.
 
-% \begin{equation*}
-%     \begin{split}
-%         D_i &= \sum\limits_{j = 0}^{i - 2}(2(i - j) - 3)D_j\\
-%             &= \sum\limits_{j = 0}^{i - 2}(2i - 2j - 3)D_j\\
-%             &= \sum\limits_{j = 0}^{i - 2}(2i - 3)D_j - \sum\limits_{j = 0}^{i - 2}2jD_j\\
-%             &= (2i - 3)\times\sum\limits_{j = 0}^{i - 2}D_j - 2\times\sum\limits_{j = 0}^{i - 2} jD_j
-%     \end{split}
-% \end{equation*}
-
-% From the above induction, we can have $D_i$ and $D_{i - 1}$
-
-% $$\left\{
-%     \begin{array}{c}
-%         D_i = (2i - 3)\times\sum\limits_{j = 0}^{i - 2}D_j - 2\times\sum\limits_{j = 0}^{i - 2} jD_j\\
-%         D_{i - 1} = (2i - 5)\times\sum\limits_{j = 0}^{i - 3}D_j - 2\times\sum\limits_{j = 0}^{i - 3}jD_j
-%     \end{array}
-% \right.$$
-
-% \begin{equation*}
-%     \begin{split}
-%         D_i - D_{i - 1} &= (2i - 3)D_{i - 2} + 2 \times\sum\limits_{j = 0}^{i - 3}D_j - 2(i - 2)\times D_{i - 2}\\
-%                         &= D_{i - 2} + 2\times\sum\limits_{j = 0}^{i - 3}D_j
-%     \end{split}
-% \end{equation*}
-
-% $$
-% \begin{array}{lcl}
-% D_i - D_{i - 1} - D_{i - 2} & = & 2\times\sum\limits_{j = 0}^{i - 3}D_j \\
-% D_{i - 1} - D_{i - 2} - D{i - 3} & = & 2 \times\sum\limits_{j = 0}^{i - 4}D_j\\
-% D_i - 2D_{i - 1} + D_{i - 3} & = & 2D_{i - 3}\\
-% D_i & = &2D_{i - 1} + D_{i - 3}
-% \end{array}
-% $$
-
-% \ \\So we obtained the transition matrix for $D_i$\\\\
 $$
 \begin{bmatrix}
     D_i\\

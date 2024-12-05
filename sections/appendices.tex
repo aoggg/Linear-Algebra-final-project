@@ -1,9 +1,79 @@
+\section{Contribution}
+
 \section{Rail}
 \label{rail}
 \includepdf[pages=-]{appendices/rail.pdf}
 
 \section{Induction for the Transition Matrix of Rail}
 \label{induction for Rail}
+
+\subsection{Induction to recursive formula} 
+
+Divide into 2 cases\\
+
+\begin{enumerate}
+    \item[Case 1:] 
+        First cycle doesn't have // and cost $k$ blocks. $\rightarrow$ At least need 2 blocks (like Fig \ref{case1}.) and only one method.\\
+
+        $\Rightarrow \sum\limits_{j=0}^{n-2}(1\times D_j)$\\
+
+    \item[Case 2:]
+        First cycle have // and cost $k$ blocks. $\rightarrow$ At least need 3 blocks and have multiple methods.\\
+        \begin{enumerate}
+            \item [1.]
+               Have $k-2$ places to choose where // is.\\
+
+            \item [2.]
+                Fig \ref{case2-1}. and Fig \ref{case2-2} are two different methods.\\
+        \end{enumerate}
+        
+        $\Rightarrow \sum\limits_{j=0}^{n-3}(2(n-j-2)\times D_j)$
+\end{enumerate}
+
+\begin{minipage}{\linewidth}
+    \centering
+    \begin{minipage}{0.32\linewidth}
+        \begin{figure}[H]
+            \includegraphics[width=2cm]{picture/case1.png}
+            \caption{case 1}
+            \label{case1}
+        \end{figure}
+    \end{minipage}
+    % \hspace{0.05\linewidth}
+    \begin{minipage}{0.32\linewidth}
+        \begin{figure}[H]
+            \includegraphics[width=3cm]{picture/case2_1.png}
+            \caption{case 2-1}
+            \label{case2-1}
+        \end{figure}
+    \end{minipage}
+    % \hspace{0.05\linewidth}
+    \begin{minipage}{0.32\linewidth}
+        \begin{figure}[H]
+            \includegraphics[width=3cm]{picture/case2_2.png}
+            \caption{case 2-2}
+            \label{case2-2}
+        \end{figure}
+    \end{minipage}
+\end{minipage}
+
+\ \\
+
+Combine both case 1 and case 2, we obtained the recursive formula of $D_i$.
+
+$$D_n = \sum\limits_{j=0}^{n-2}D_j + \sum\limits_{j=0}^{n-3}2(n-j-2)D_j$$
+
+Notice that: For the second sigma, when $j = n-2,\ n-j-2 = n-(n-2)-2 = 0$.\\
+
+Therefore, 
+
+\begin{align*}
+D_n &= \sum\limits_{j=0}^{n-2}D_j + \sum\limits_{j=0}^{n-3}2(n-j-2)D_j \\
+    &= \sum\limits_{j=0}^{n-2}D_j + \sum\limits_{j=0}^{n-2}2(n-j-2)D_j \\
+    &= \sum\limits_{j=0}^{n-2}(2(n-j)-3)D_j 
+\end{align*}
+
+\subsection{From recursive formula to transition matrix}
 
 We start with the recursive formula:
 \begin{equation}
@@ -113,4 +183,3 @@ The general term can be expressed as:
 \lstinputlisting[language=C++]{appendices/rail.cpp}
 \subsection{Using Fast Matrix Power}
 \lstinputlisting[language=C++]{appendices/rail_bignum.cpp}
-
