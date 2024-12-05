@@ -161,12 +161,24 @@ int64_t solve(Num n){
 }
 
 int main(){
-    string str;
-    cin >> str;
-    Num n(str);
-    int64_t t3 = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-    int64_t ans = solve(n);
-    cout << duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()-t3 << '\n';
-    cout << ans << '\n';
-    
+    FILE *f1,*f2;
+    f1 = fopen("num.txt","w");
+    f2 = fopen("time.txt","w");
+    int tmp = 4;
+    for(int i=0;i<100;i++){
+        string str = "";
+        str += to_string(tmp);
+        str += "00000";
+        tmp += 4;
+        cout << str << endl;
+        Num n(str);
+        int64_t t3 = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+        int64_t ans = solve(n);
+        cout << "Time Cost(Mat): " << duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()-t3 << "ms\n";
+        //cout << "Value: " << ans << '\n';
+        fprintf(f1,"%s\n",str.c_str());
+        fprintf(f2,"%ld\n",duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()-t3);
+    }
+    fclose(f1);
+    fclose(f2);
 }

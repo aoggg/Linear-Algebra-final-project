@@ -19,11 +19,19 @@ int64_t cal(int n) {
 
 int main() {
     int n;
-    cin >> n;
-    int64_t ans = 0;
-    int64_t t = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
-    ans = cal(n);
-    cout << "cost time: " << duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - t << '\n';
-    cout << "ans: " << ans << '\n';
-    return 0;
+    FILE *f1, *f2;
+    f1 = fopen("num.txt","w");
+    f2 = fopen("time.txt","w");
+    for(n = 0;n <= 45; n++){
+        int64_t ans = 0;
+        fprintf(f1,"%d\n",n);
+        int64_t t = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+        ans = cal(n);
+        fprintf(f2,"%ld\n",duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count()-t);
+        cout << "cost time: " << duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - t << '\n';
+        cout << "ans: " << ans << '\n';
+    }
+    fclose(f1);
+    fclose(f2);
+    
 }
