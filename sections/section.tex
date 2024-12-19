@@ -3,14 +3,49 @@
 \section{Materials and Methods}
 \subsection{Materials}
 
-
+Pen, paper, computer, C++, brains, curiosity for Linear Algebra.
 
 \subsection{Methods}
 
+From the Rail problem, we derived the recurrence relation and its transition matrix.
+Then, we implemented recursive functions, DP, and fast matrix exponentiation to compare their computation times across different values of $N$.
+
 \section{Result}
+
+Belowing are the graphs of computation time vs. $N$ for each methods:
+\begin{enumerate}
+    \item \textbf{Recursive functions} : Execution time grows exponentially.
+    \item \textbf{Time complexity $O(N^2)$ DP (hereafter referred to as DP-1)} : Execution time grows quadratically.
+    \item \textbf{Time complexity $O(N)$ DP (hereafter referred to as DP-2)} : Execution time grows linearly.
+    \item \textbf{Fast matrix exponentiation} : Execution time is roughly constant.
+\end{enumerate}
 
 \section{Discussion}
 
+Comparison of the time taken by each method within a specific range of $N$:
+
+Notice that due to the significant differences in execution efficiency among the four methods, it is difficult to compare them directly for the same range of $N$. 
+Therefore, we will discuss them in segments based on different ranges of $N$ and select appropriate methods (two or more) for comparison.
+
+\begin{enumerate}
+    \item \textbf{When $N \leq 40000$}: 
+    
+    As shown in the figure below, the time taken by DP-2 grows quadratically, reaching approximately 7000ms at \(N=40000\). In contrast, the time taken by DP-1 and matrix exponentiation methods remains relatively small.
+    \item \textbf{When $N \leq 10^7$}:
+    
+    As shown in the figure below, the time taken by DP-1 grows linearly, reaching approximately 1 second at \(N=4 \times 10^7\). In this range, the matrix exponentiation method remains roughly constant and takes less time than DP-1.
+
+    \item \textbf{When $N \leq 10^{400}$}:
+    
+    In this very large range of numbers, the time taken by matrix exponentiation grows linearly with \( \log N \), reaching approximately 5000ms at \(N = 10^{400}\).
+\end{enumerate}
+
 \section{Conclusion}
+
+\begin{enumerate}
+    \item If the \(n\)-th term of a recurrence relation is a linear combination of the previous \(k\) terms, with constant coefficients (such as the Fibonacci sequence), it can always be represented by a \(k \times k\) transition matrix and accelerated using matrix exponentiation.
+    \item From the recurrence derived in the Rail problem, we can see that although some recurrences initially do not take the form of a linear combination of previous terms, after simplification, they can still be rewritten as a linear combination of the previous \(k\) terms with constant coefficients, and can be handled similarly to (1) as described above.
+    \item From the result graph, it can be observed that transforming the recurrence from its function form to matrix exponentiation significantly improves computational efficiency. The size of \(N\) that can be calculated within a fixed amount of time is roughly on the order of hundreds of powers of 10!
+\end{enumerate}
 
 \section{Reference}
