@@ -1,4 +1,5 @@
 \section{Introduction}
+\label{introduction}
 
 In mathematics and programming problems, we often encounter recursive expressions.
 Take the Fibonacci sequence for example, if we compute it directly, it will cause inefficiency, especially in cases that involve multiple iterations or higher-order systems.
@@ -7,6 +8,7 @@ As the chart shows below, the computation time will soar up quickly when $N$ is 
 By transforming recursive expressions into matrices form, we can use fast matrix exponentiation to hugely improve the computation efficiency.
 
 \section{Materials and Methods}
+\label{materials & methods}
 \subsection{Materials}
 
 Pen, paper, computer, C++, brains, curiosity for Linear Algebra.
@@ -27,6 +29,7 @@ Belowing are the graphs of computation time vs. $N$ for each methods:
 \end{enumerate}
 
 \section{Discussion}
+\label{discussion}
 
 Comparison of the time taken by each method within a specific range of $N$:
 
@@ -47,11 +50,83 @@ Therefore, we will discuss them in segments based on different ranges of $N$ and
 \end{enumerate}
 
 \section{Conclusion}
+\label{conclusion}
 
+\subsection{Efficiency}
 \begin{enumerate}
-    \item If the \(n\)-th term of a recurrence relation is a linear combination of the previous \(k\) terms, with constant coefficients (such as the Fibonacci sequence), it can always be represented by a \(k \times k\) transition matrix and accelerated using matrix exponentiation.
-    \item From the recurrence derived in the Rail problem, we can see that although some recurrences initially do not take the form of a linear combination of previous terms, after simplification, they can still be rewritten as a linear combination of the previous \(k\) terms with constant coefficients, and can be handled similarly to (1) as described above.
-    \item From the result graph, it can be observed that transforming the recurrence from its function form to matrix exponentiation significantly improves computational efficiency. The size of \(N\) that can be calculated within a fixed amount of time is roughly on the order of hundreds of powers of 10!
+    \item [a.] fast matrix exponentiation > DP > recursion
+    \item [b.] As $N$ grows larger, the time gap in cost increases. 
+\end{enumerate}
+
+\subsection{Possibility of converting to matrix}
+\begin{enumerate}
+    \item[a.]$D_n = \sum_{j=1}^k \lambda_j D_{n-j}\text{ where }k,\lambda_1, \lambda_2, \dots, \lambda_k \text{ are consts, then}$ \\
+    \\
+    $A=\begin{bmatrix}
+    \lambda_1 & \lambda_2 & \dots & \lambda_k\\
+    1 & 0 & \dots & 0\\
+    0 & 1 & \dots & 0\\
+    \vdots & \vdots & \ddots  & \vdots \\
+    0 & 0 & \dots & 1 
+    \end{bmatrix}
+    \text{ and }
+    \begin{bmatrix}
+    D_n \\
+    D_{n-1}\\
+    \vdots \\
+    D_{n-k+1}
+    \end{bmatrix}
+    =
+    A^{n-k}
+    \begin{bmatrix}
+    D_{k} \\
+    D_{k-1}\\
+    \vdots \\
+    D_{1}
+    \end{bmatrix}\\
+$
+    \\\
+    \item[b.] $D_n = \sum_{j=c_1}^{n-c_2} (an+bj+c) D_j$ \\
+    \\
+    $\rightarrow D_n = \sum_{j=c_1}^{n-c2}(an+c)D_j + b\sum_{j=c_1}^{n-c2}jD_j$\\
+    \\
+    $\rightarrow D_{n-1} = \sum_{j=c_1}^{n-c2-1}(a(n-1)+c)D_j + b\sum_{j=c_1}^{n-c2-1}jD_j$\\
+    \\
+    $\rightarrow D_n - D_{n-1} = (an+bn-b\times c_2+c)D_{n-c_2} + a\sum_{j=c_1}^{n-c_2-1}D_j$ \\
+    \\
+    $\rightarrow D_n - D_{n-1} - (an+bn-b\times c_2+c)D_{n-c_2} = a\sum_{j=c_1}^{n-c_2-1}D_j$\\
+    \\
+    $\rightarrow D_{n-1} - D_{n-2} - (a(n-1)+b(n-1)-b\times c_2+c)D_{n-c_2-1} = a\sum_{j=c_1}^{n-c_2-2}D_j$\\
+    \\
+    $\rightarrow D_n - 2D_{n-1} + D_{n-2} - (an+bn-b\times c_2+c)D_{n-c_2} + (an+bn-a-b-b\times c_2+c)D_{n-c_2-1} = aD_{n-c_2-1}$\\
+    \\
+    $\rightarrow D_n = 2D_{n-1} - D_{n-2} + (an+bn-b\times c_2+c)D_{n-c_2} - (an+bn-2a-b-b\times c_2+c)D_{n-c_2-1}$\\
+    \\
+    $\text{if } an+bn=0 \Rightarrow a=-b \text{ then }$\\
+    \\
+    $A=\begin{bmatrix}
+    2 & -1 & 0 & \dots & 0 & (-b\times c_2+c) & (2a+b+b\times c_2-c)\\
+    1 & 0 & 0 & \dots & 0 & 0 & 0\\
+    0 & 1 & 0 & \dots & 0 & 0 & 0\\
+    \vdots & \vdots & \vdots & \ddots & \vdots & \vdots & \vdots\\
+    0 & 0 & 0 & \dots & 0 & 1 & 0 
+    \end{bmatrix}$\\
+    \\
+    $\text{and }
+    \begin{bmatrix}
+    D_n \\
+    D_{n-1}\\
+    \vdots \\
+    D_{n-c_2}
+    \end{bmatrix}
+    =
+    A^{n-c_2-1}
+    \begin{bmatrix}
+    D_{c_2+1} \\
+    D_{c_2}\\
+    \vdots \\
+    D_{1}
+    \end{bmatrix}\\$
 \end{enumerate}
 
 \section{Reference}
